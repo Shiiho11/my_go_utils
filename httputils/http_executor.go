@@ -23,7 +23,7 @@ const (
 //	err := httputils.NewHttpExecutor(http.DefaultClient).
 //		Url("https://rest.apipost.net/users/{username}").
 //		Headers(map[string]string{"apikey": "your apikey"}).
-//		Body(&RequestData{}, httputils.APPLICATION_JSON).
+//		Body(RequestData{}, httputils.APPLICATION_JSON).
 //		Method(http.MethodGet).
 //		Execute(&ResultData{}, httputils.APPLICATION_JSON).
 //		Error
@@ -123,7 +123,7 @@ func (he *HttpExecutor) Body(data any, contentType ...string) *HttpExecutor {
 
 // Execute HTTP request.
 //
-// The data must be a pointer.
+// The data must be a pointer. Response data will be decoded into the data.
 //
 // If contentType is specified, data will be decoded according to the specified contentType.
 //
