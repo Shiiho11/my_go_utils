@@ -39,8 +39,10 @@ type HttpExecutor struct {
 func NewHttpExecutor(client *http.Client) *HttpExecutor {
 	return &HttpExecutor{
 		client:  client,
+		method:  http.MethodGet,
 		headers: make(map[string]string),
 		body:    nil,
+		Error:   nil,
 	}
 }
 
