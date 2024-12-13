@@ -123,7 +123,7 @@ func (he *HttpExecutor) Body(data any, contentType ...string) *HttpExecutor {
 
 // Execute HTTP request.
 //
-// The data must be a pointer. Response data will be decoded into the data.
+// The data must be a pointer. Response body will be written to data.
 //
 // If contentType is specified, data will be decoded according to the specified contentType.
 //
