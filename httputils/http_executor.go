@@ -22,9 +22,9 @@ const (
 //
 //	err := httputils.NewHttpExecutor(http.DefaultClient).
 //		Url("https://rest.apipost.net/users/{username}").
+//		Method(http.MethodGet).
 //		Headers(map[string]string{"apikey": "your apikey"}).
 //		Body(RequestData{}, httputils.APPLICATION_JSON).
-//		Method(http.MethodGet).
 //		Execute(&ResultData{}, httputils.APPLICATION_JSON).
 //		Error
 type HttpExecutor struct {
