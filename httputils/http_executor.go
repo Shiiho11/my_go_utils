@@ -67,7 +67,7 @@ func (he *HttpExecutor) Headers(headers map[string]string) *HttpExecutor {
 //
 //	| data.(type)                 | contentType                         |
 //	| --------------------------- | ----------------------------------- |
-//	| string | []byte | io.Reader | nil                                 |
+//	| string | []byte | io.Reader | omit this param | ""                |
 //	| any                         | "application/json"                  |
 //	| map[string]string           | "application/x-www-form-urlencoded" |
 func (he *HttpExecutor) Body(data any, contentType ...string) *HttpExecutor {
@@ -129,10 +129,10 @@ func (he *HttpExecutor) Body(data any, contentType ...string) *HttpExecutor {
 //
 // If contentType is specified, data will be decoded according to the specified contentType.
 //
-//	| data.(type)                 | contentType                         |
-//	| --------------------------- | ----------------------------------- |
-//	| *string | *[]byte           | nil                                 |
-//	| any                         | "application/json"                  |
+//	| data.(type)                 | contentType          |
+//	| --------------------------- | -------------------- |
+//	| *string | *[]byte           | omit this param | "" |
+//	| any                         | "application/json"   |
 func (he *HttpExecutor) Execute(data any, contentType ...string) *HttpExecutor {
 	// check error
 	if he.Error != nil {
