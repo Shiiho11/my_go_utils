@@ -76,7 +76,7 @@ func (he *HttpExecutor) Body(data any, contentType ...string) *HttpExecutor {
 	}
 
 	// if contentType is empty, there is no need to encoded the data
-	if len(contentType) == 0 {
+	if len(contentType) == 0 || contentType[0] == "" {
 		// if contentType is empty, data: string | []byte | io.Reader
 		switch data := data.(type) {
 		case string:
@@ -93,7 +93,7 @@ func (he *HttpExecutor) Body(data any, contentType ...string) *HttpExecutor {
 	}
 
 	// encode data
-	switch contentType[0] {
+	switch contentType := contentType[0]; contentType {
 	case APPLICATION_JSON:
 		body, err := json.Marshal(data)
 		if err != nil {
@@ -118,7 +118,7 @@ func (he *HttpExecutor) Body(data any, contentType ...string) *HttpExecutor {
 		he.body = strings.NewReader(body.Encode())
 		he.headers[CONTENT_TYPE] = APPLICATION_FORM_URLENCODED
 	default:
-		he.Error = fmt.Errorf("request body: unsupported Content-Type: %s", contentType[0])
+		he.Error = fmt.Errorf("request body: unsupported Content-Type: %s", contentType)
 	}
 	return he
 }
@@ -163,7 +163,7 @@ func (he *HttpExecutor) Execute(data any, contentType ...string) *HttpExecutor {
 	}
 
 	// if contentType is empty, there is no need to decoded the data
-	if len(contentType) == 0 {
+	if len(contentType) == 0 || contentType[0] == "" {
 		// if contentType is empty, data: *string | *[]byte
 		switch data := data.(type) {
 		case *string:
@@ -178,7 +178,7 @@ func (he *HttpExecutor) Execute(data any, contentType ...string) *HttpExecutor {
 	}
 
 	// decode data
-	switch contentType[0] {
+	switch contentType := contentType[0]; contentType {
 	case APPLICATION_JSON:
 		err = json.Unmarshal(resBody, data)
 		if err != nil {
@@ -186,7 +186,7 @@ func (he *HttpExecutor) Execute(data any, contentType ...string) *HttpExecutor {
 			return he
 		}
 	default:
-		he.Error = fmt.Errorf("response body: unsupported Content-Type: %s", contentType[0])
+		he.Error = fmt.Errorf("response body: unsupported Content-Type: %s", contentType)
 	}
 	return he
 }
